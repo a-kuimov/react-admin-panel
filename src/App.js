@@ -1,12 +1,12 @@
-import { ColorModeContext, useMode } from './theme';
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import { Route, Routes } from 'react-router-dom';
-import { ProSidebarProvider } from 'react-pro-sidebar';
-import Topbar from './scenes/global/Topbar'
-import SidebarApp from './scenes/global/Sidebar';
-import Dashbord from './scenes/dashboard'
+import { ColorModeContext, useMode } from "./theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+import { ProSidebarProvider } from "react-pro-sidebar";
+import Topbar from "./scenes/global/Topbar";
+import SidebarApp from "./scenes/global/Sidebar";
+import Dashbord from "./scenes/dashboard";
 
-// import Team from './scenes/team'
+import Team from "./scenes/team";
 // import Invoices from './scenes/invoices'
 // import Contacts from './scenes/contacts'
 // import Bar from './scenes/bar'
@@ -21,16 +21,16 @@ function App() {
   const [theme, colorMode] = useMode();
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme} >
+      <ThemeProvider theme={theme}>
         <CssBaseline />
         <ProSidebarProvider>
           <div className="app">
             <SidebarApp />
-            <main className='content'>
+            <main className="content">
               <Topbar />
               <Routes>
-                <Route path='/' element={<Dashbord />} />
-                {/* <Route path='/team' element={<Team />} /> */}
+                <Route path="/" element={<Dashbord />} />
+                <Route path="/team" element={<Team />} />
                 {/* <Route path='/invoices' element={<Invoices />} /> */}
                 {/* <Route path='/contacts' element={<Contacts />} /> */}
                 {/* <Route path='/bar' element={<Bar />} /> */}
