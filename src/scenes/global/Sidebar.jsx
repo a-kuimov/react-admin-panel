@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -18,12 +18,27 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
+const MenuItemWithLink = ({ to, icon, title, selected, setSelected }) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  return (
+    <MenuItem
+      icon={icon}
+      active={selected === title}
+      onClick={() => setSelected(title)}
+    >
+      <Link to={to}>{title}</Link>
+    </MenuItem>
+  );
+};
+
 const SidebarApp = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { collapseSidebar, collapsed } = useProSidebar();
-  const [selected, setSelected] = useState("Dashbord");
+  const [selected, setSelected] = useState("Dashboard");
 
+  console.log("render2");
   return (
     <Box
       sx={{
@@ -43,7 +58,14 @@ const SidebarApp = () => {
                 backgroundColor: "transparent",
                 color: active ? "#8670fa" : "",
               },
+              ".menu-anchor a": {
+                color: active ? "#8670fa" : colors.gray[100],
+                textDecoration: "none",
+              },
               ".menu-anchor:hover": {
+                color: "#868dfb",
+              },
+              ".menu-anchor:hover a": {
                 color: "#868dfb",
               },
             })}
@@ -92,14 +114,27 @@ const SidebarApp = () => {
                 </Box>
               </Box>
             )}
-            <MenuItem icon={<HomeOutlinedIcon />}>
-              {" "}
-              <Link to="/">Dashbord</Link>{" "}
-            </MenuItem>
-            <MenuItem icon={<PeopleOutlinedIcon />}>
-              {" "}
-              <Link to="/team">Team</Link>{" "}
-            </MenuItem>
+            <MenuItemWithLink
+              title="Dashboard"
+              to="/"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <MenuItemWithLink
+              title="Team"
+              to="/team"
+              icon={<PeopleOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <MenuItemWithLink
+              title="Contacts"
+              to="/contacts"
+              icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </Menu>
         </Sidebar>
       </div>
