@@ -4,6 +4,8 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 
+import Avatar from "../../components/Avatar";
+
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -17,20 +19,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-
-const MenuItemWithLink = ({ to, icon, title, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  return (
-    <MenuItem
-      icon={icon}
-      active={selected === title}
-      onClick={() => setSelected(title)}
-    >
-      <Link to={to}>{title}</Link>
-    </MenuItem>
-  );
-};
+import MenuItemWithLink from "../../components/MenuItemWithLink";
 
 const SidebarApp = () => {
   const theme = useTheme();
@@ -73,6 +62,7 @@ const SidebarApp = () => {
             <MenuItem
               onClick={() => collapseSidebar()}
               icon={collapsed ? <MenuOutlinedIcon /> : <MenuOpenRoundedIcon />}
+              routerLink={<Link to="/" />}
               style={{
                 margin: "10px 0 20px 0",
                 color: colors.gray[100],
@@ -88,32 +78,9 @@ const SidebarApp = () => {
               </Box>
             </MenuItem>
             {/* USER */}
-            {!collapsed && (
-              <Box mb="25px">
-                <Box display="flex" alignItems="center" justifyContent="center">
-                  <img
-                    src={`../../assets/images/avatar.jpg`}
-                    alt="avatar"
-                    width="100px"
-                    height="100px"
-                    style={{ cursor: "pointer", borderRadius: "50px" }}
-                  />
-                </Box>
-                <Box textAlign="center">
-                  <Typography
-                    variant="h2"
-                    color={colors.gray[100]}
-                    fontWeight="bold"
-                    sx={{ m: "10px 0 0 0" }}
-                  >
-                    Ed Roth
-                  </Typography>
-                  <Typography variant="h5" color={colors.greenAccent[500]}>
-                    Admin
-                  </Typography>
-                </Box>
-              </Box>
-            )}
+            <Box style={{ display: !collapsed ? "block" : "none" }}>
+              <Avatar />
+            </Box>
             <MenuItemWithLink
               title="Dashboard"
               to="/"
